@@ -9,4 +9,6 @@ include_directories(include)
 # 添加源文件
 file(GLOB SOURCES src/*.cpp)
 
-add_executable(demo ${SOURCES})
+add_executable(demo ${SOURCES}
+        src/cube.cpp
+        include/cube.h)
