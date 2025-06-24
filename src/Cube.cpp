@@ -48,7 +48,8 @@ void Cube::rotate(const double rotate_speed)
     }
 }
 
-void Cube::render(const double camera_y[3],const double center[2], char*** pre_buffer, const int width, const int height)
+void Cube::render(const double camera_y[3],const double center[2], char*** pre_buffer
+    , const int width, const int height, const double scale)
 {
     static int buffer_index = 0;
     int next_index = 1 - buffer_index;
@@ -69,7 +70,7 @@ void Cube::render(const double camera_y[3],const double center[2], char*** pre_b
 
     for (auto& dot : cube)
     {
-        dot.render(camera_y, center, pre_buffer[next_index], width, height);
+        dot.render(camera_y, center, pre_buffer[next_index], width, height, scale);
     }
 
     buffer_index = next_index;

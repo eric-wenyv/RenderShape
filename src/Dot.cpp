@@ -39,7 +39,8 @@ Dot Dot::project() const
     return pro_dot;
 }
 
-void Dot::render(const double camera[], const double center[2], char** buffer, int width, int height)
+void Dot::render(const double camera[], const double center[2], char** buffer,
+    const int width, const int height, const double scale)
 {
     const double cx = camera[0];
     const double cy = camera[1];
@@ -65,8 +66,8 @@ void Dot::render(const double camera[], const double center[2], char** buffer, i
     m_projection.at(3, 3) = 1;
 
     Dot pro_dot = this->project();
-    const double x = pro_dot.x() / pro_dot.ex() * 10 + center[0];
-    const double y = pro_dot.y() / pro_dot.ex() * 10 + center[1];
+    const double x = pro_dot.x() / pro_dot.ex() * scale + center[0];
+    const double y = pro_dot.y() / pro_dot.ex() * scale + center[1];
     const int xi = static_cast<int>(x);
     const int yi = static_cast<int>(y);
     if (xi >= 0 && xi < width && yi >= 0 && yi < height)

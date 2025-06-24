@@ -22,7 +22,7 @@ void deleteBuffer(char** buffer, const int height)
 
 void clear_screen()
 {
-    std::cout << "\033[2J\033[H"; // 清屏并移动到左上角
+    std::cout << "\033[H";
     std::cout.flush();
 }
 
