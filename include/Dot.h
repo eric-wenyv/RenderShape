@@ -22,8 +22,6 @@ public:
     double ex() { return m_coordinate.at(3, 0); }
 
     // 渲染
-    // void render(const double camera[], const double center[2]);
-    // 渲染到缓冲区
     void render(const double camera[], const double center[2], char** buffer, int width, int height);
 
     void rotate(double angle);

@@ -3,6 +3,7 @@
 #include <array>
 #include <fstream>
 #include <iostream>
+#include "renderUtils.h"
 
 std::vector<Dot> Cube::readShape(const std::string &filename)
 {
@@ -47,33 +48,30 @@ void Cube::rotate(const double rotate_speed)
     }
 }
 
-void Cube::render(const double camera_y[3],const double center[2])
+void Cube::render(const double camera_y[3],const double center[2], char*** pre_buffer, const int width, const int height)
 {
-    constexpr int width = 100;
-    constexpr int height = 30;
-    // 分配缓冲区
-    auto buffer = new char*[height];
+    static int buffer_index = 0;
+    int next_index = 1 - buffer_index;
+
+    // 输出当前缓冲区
+    std::string screen;
+    screen.reserve(width * height + height);
     for (int i = 0; i < height; ++i) {
-        buffer[i] = new char[width];
-        std::fill_n(buffer[i], width, ' ');
+        screen.append(pre_buffer[buffer_index][i], width);
+        screen.push_back('\n');
     }
-    // 渲染所有点到缓冲区
-    for (auto& dot : cube)
-    {
-        dot.render(camera_y, center, buffer, width, height);
-    }
-    // 输出缓冲区
+    std::cout << screen;
+
+    // 清空下一缓冲区
     for (int i = 0; i < height; ++i) {
-        for (int j = 0; j < width; ++j) {
-            std::cout << buffer[i][j];
-        }
-        std::cout << '\n';
+        std::fill_n(pre_buffer[next_index][i], width, ' ');
     }
 
-    // 释放缓冲区
-    for (int i = 0; i < height; ++i) {
-        delete[] buffer[i];
+    for (auto& dot : cube)
+    {
+        dot.render(camera_y, center, pre_buffer[next_index], width, height);
     }
-    delete[] buffer;
+
+    buffer_index = next_index;
     std::cout.flush();
 }

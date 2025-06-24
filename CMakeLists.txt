@@ -11,4 +11,6 @@ file(GLOB SOURCES src/*.cpp)
 
 add_executable(demo ${SOURCES}
         src/cube.cpp
-        include/cube.h)
+        include/cube.h
+        src/renderUtils.cpp
+        include/renderUtils.h)

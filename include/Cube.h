@@ -13,5 +13,5 @@ public:
     static std::vector<Dot> readShape(const std::string &filename);
 
     void rotate(double rotate_speed);
-    void render(const double camera_y[3], const double center[2]);
+    void render(const double camera_y[3], const double center[2], char*** pre_buffer, const int width, const int height);
 };
