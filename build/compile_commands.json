@@ -1,0 +1,32 @@
+[
+{
+  "directory": "D:/Code/C/ConsoleRender/build",
+  "command": "C:\\mingw\\w64devkit\\bin\\g++.exe  @CMakeFiles/demo.dir/includes_CXX.rsp -g -std=gnu++17 -fdiagnostics-color=always -o CMakeFiles\\demo.dir\\src\\consoleInfo.cpp.obj -c D:\\Code\\C\\ConsoleRender\\src\\consoleInfo.cpp",
+  "file": "D:/Code/C/ConsoleRender/src/consoleInfo.cpp",
+  "output": "CMakeFiles/demo.dir/src/consoleInfo.cpp.obj"
+},
+{
+  "directory": "D:/Code/C/ConsoleRender/build",
+  "command": "C:\\mingw\\w64devkit\\bin\\g++.exe  @CMakeFiles/demo.dir/includes_CXX.rsp -g -std=gnu++17 -fdiagnostics-color=always -o CMakeFiles\\demo.dir\\src\\demo.cpp.obj -c D:\\Code\\C\\ConsoleRender\\src\\demo.cpp",
+  "file": "D:/Code/C/ConsoleRender/src/demo.cpp",
+  "output": "CMakeFiles/demo.dir/src/demo.cpp.obj"
+},
+{
+  "directory": "D:/Code/C/ConsoleRender/build",
+  "command": "C:\\mingw\\w64devkit\\bin\\g++.exe  @CMakeFiles/demo.dir/includes_CXX.rsp -g -std=gnu++17 -fdiagnostics-color=always -o CMakeFiles\\demo.dir\\src\\dot.cpp.obj -c D:\\Code\\C\\ConsoleRender\\src\\dot.cpp",
+  "file": "D:/Code/C/ConsoleRender/src/dot.cpp",
+  "output": "CMakeFiles/demo.dir/src/dot.cpp.obj"
+},
+{
+  "directory": "D:/Code/C/ConsoleRender/build",
+  "command": "C:\\mingw\\w64devkit\\bin\\g++.exe  @CMakeFiles/demo.dir/includes_CXX.rsp -g -std=gnu++17 -fdiagnostics-color=always -o CMakeFiles\\demo.dir\\src\\line.cpp.obj -c D:\\Code\\C\\ConsoleRender\\src\\line.cpp",
+  "file": "D:/Code/C/ConsoleRender/src/line.cpp",
+  "output": "CMakeFiles/demo.dir/src/line.cpp.obj"
+},
+{
+  "directory": "D:/Code/C/ConsoleRender/build",
+  "command": "C:\\mingw\\w64devkit\\bin\\g++.exe  @CMakeFiles/demo.dir/includes_CXX.rsp -g -std=gnu++17 -fdiagnostics-color=always -o CMakeFiles\\demo.dir\\src\\matrix.cpp.obj -c D:\\Code\\C\\ConsoleRender\\src\\matrix.cpp",
+  "file": "D:/Code/C/ConsoleRender/src/matrix.cpp",
+  "output": "CMakeFiles/demo.dir/src/matrix.cpp.obj"
+}
+]
