@@ -63,6 +63,13 @@ build CMakeFiles/demo.dir/src/Matrix.cpp.obj: CXX_COMPILER__demo_unscanned_Debug
   OBJECT_DIR = CMakeFiles\demo.dir
   OBJECT_FILE_DIR = CMakeFiles\demo.dir\src
 
+build CMakeFiles/demo.dir/src/RenderConfig.cpp.obj: CXX_COMPILER__demo_unscanned_Debug D$:/Code/C/ConsoleRender/src/RenderConfig.cpp || cmake_object_order_depends_target_demo
+  DEP_FILE = CMakeFiles\demo.dir\src\RenderConfig.cpp.obj.d
+  FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
+  INCLUDES = -ID:/Code/C/ConsoleRender/include
+  OBJECT_DIR = CMakeFiles\demo.dir
+  OBJECT_FILE_DIR = CMakeFiles\demo.dir\src
+
 build CMakeFiles/demo.dir/src/Shape.cpp.obj: CXX_COMPILER__demo_unscanned_Debug D$:/Code/C/ConsoleRender/src/Shape.cpp || cmake_object_order_depends_target_demo
   DEP_FILE = CMakeFiles\demo.dir\src\Shape.cpp.obj.d
   FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
@@ -92,7 +99,7 @@ build CMakeFiles/demo.dir/src/renderUtils.cpp.obj: CXX_COMPILER__demo_unscanned_
 #############################################
 # Link the executable demo.exe
 
-build demo.exe: CXX_EXECUTABLE_LINKER__demo_Debug CMakeFiles/demo.dir/src/Dot.cpp.obj CMakeFiles/demo.dir/src/Matrix.cpp.obj CMakeFiles/demo.dir/src/Shape.cpp.obj CMakeFiles/demo.dir/src/demo.cpp.obj CMakeFiles/demo.dir/src/renderUtils.cpp.obj
+build demo.exe: CXX_EXECUTABLE_LINKER__demo_Debug CMakeFiles/demo.dir/src/Dot.cpp.obj CMakeFiles/demo.dir/src/Matrix.cpp.obj CMakeFiles/demo.dir/src/RenderConfig.cpp.obj CMakeFiles/demo.dir/src/Shape.cpp.obj CMakeFiles/demo.dir/src/demo.cpp.obj CMakeFiles/demo.dir/src/renderUtils.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\demo.dir

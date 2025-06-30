@@ -1,18 +1,11 @@
 #include "Shape.h"
-
 #include <algorithm>
 #include <sstream>
 #include <array>
 #include <fstream>
 #include <iostream>
 #include <cmath>
-
-std::vector<std::pair<double,char>> symbols = {
-    {0.2, '@'},
-    {0.4, '*'},
-    {0.6, '+'},
-    {0.8, '-'},
-    {1.0, '.'}};
+#include "RenderConfig.h"
 
 double getDistanceToCamera(Dot dot,const double camera[])
 {
@@ -25,7 +18,7 @@ double getDistanceToCamera(Dot dot,const double camera[])
 
 char getSymbol(const double distance)
 {
-    for (auto [dis,symbol] : symbols)
+    for (auto [dis,symbol] : RenderConfig::symbols)
     {
         if (distance <= dis)
         {

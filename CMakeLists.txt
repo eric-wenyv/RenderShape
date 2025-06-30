@@ -10,7 +10,5 @@ include_directories(include)
 file(GLOB SOURCES src/*.cpp)
 
 add_executable(demo ${SOURCES}
-        src/Shape.cpp
-        include/Shape.h
-        src/renderUtils.cpp
-        include/renderUtils.h)
+        include/RenderConfig.h
+        src/RenderConfig.cpp)
