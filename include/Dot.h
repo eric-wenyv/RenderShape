@@ -21,8 +21,7 @@ public:
     double z() { return m_coordinate.at(2, 0); }
     double ex() { return m_coordinate.at(3, 0); }
 
-    // 渲染
-    void render(const double camera[], const double center[2], char** buffer, int width, int height, double scale);
-
     void rotate(double angle);
+
+    int* getProjectedCoordinates(const double camera[], const double center[2],int width, int height, double scale_x,double scale_y);
 };
