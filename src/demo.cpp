@@ -5,6 +5,7 @@
 #include <thread>
 #include "renderUtils.h"
 #include "RenderConfig.h"
+#include <conio.h>
 
 using namespace std;
 int main()
@@ -18,8 +19,19 @@ int main()
     pre_buffer[0] = renderUtils::createBuffer(RenderConfig::width, RenderConfig::height);
     pre_buffer[1] = renderUtils::createBuffer(RenderConfig::width, RenderConfig::height);
 
-    while (true)
+    bool running = true;
+    while (running)
     {
+        //检测用户输入
+        if (_kbhit())
+        {
+            char ch = _getch();
+            if (ch == 'q' || ch == 'Q') // 按 'q' 键退出
+            {
+                running = false;
+            }
+        }
+
         //清除上一帧
         renderUtils::clear_screen();
         //渲染立方体
@@ -29,4 +41,13 @@ int main()
         //旋转图形
         cube_object.rotate(RenderConfig::rotate_speed);
     }
+
+    //清理资源
+    for (size_t i = 0; i < 2; i++)
+    {
+        renderUtils::deleteBuffer(pre_buffer[i], RenderConfig::height);
+    }
+    delete[] pre_buffer;
+
+    return 0;
 }

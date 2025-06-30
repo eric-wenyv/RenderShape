@@ -39,7 +39,7 @@ Dot Dot::project() const
     return pro_dot;
 }
 
-int* Dot::getProjectedCoordinates(const double camera[], const double center[2],
+std::unique_ptr<int[]> Dot::getProjectedCoordinates(const double camera[], const double center[2],
                                   const int width, const int height, const double scale_x,const double scale_y)
 {
     const double cx = camera[0];
@@ -65,17 +65,16 @@ int* Dot::getProjectedCoordinates(const double camera[], const double center[2],
     m_projection.at(3, 2) = -1 / cz;
     m_projection.at(3, 3) = 1;
 
-    Dot pro_dot = this->project();
+    const Dot pro_dot = this->project();
     const double x = pro_dot.x() / pro_dot.ex() * scale_x + center[0];
     const double y = pro_dot.y() / pro_dot.ex() * scale_y + center[1];
-    const auto projected_coordinates = new int[2];
+    auto projected_coordinates = std::make_unique<int[]>(2);
     const int xi = static_cast<int>(x);
     const int yi = static_cast<int>(y);
     projected_coordinates[0] = xi;
     projected_coordinates[1] = yi;
     if (xi >= 0 && xi <= width && yi >= 0 && yi <= height)
         return projected_coordinates;
-    delete[] projected_coordinates;
     return nullptr;
 }
 

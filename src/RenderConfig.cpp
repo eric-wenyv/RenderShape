@@ -21,4 +21,27 @@ namespace RenderConfig {
         {0.8, '-'},
         {1.0, '.'}
     };
+
+
+    double getDistanceToCamera(const Dot& dot,const double camera[])
+    {
+        return std::sqrt(
+            std::pow(dot.x() - camera[0], 2) +
+            std::pow(dot.y() - camera[1], 2) +
+            std::pow(dot.z() - camera[2], 2)
+        );
+    }
+
+    char getSymbol(const double distance)
+    {
+        for (auto [dis,symbol] : RenderConfig::symbols)
+        {
+            if (distance <= dis)
+            {
+                return symbol;
+            }
+        }
+
+        return ' ';
+    }
 }

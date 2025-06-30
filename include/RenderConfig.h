@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <utility>
+#include "Dot.h"
 
 namespace RenderConfig {
     // 镜头位置
@@ -16,4 +17,8 @@ namespace RenderConfig {
 
     // 渲染符号
     extern std::vector<std::pair<double,char>> symbols;
+
+    extern double getDistanceToCamera(const Dot& dot,const double camera[]);
+
+    extern char getSymbol(double distance);
 }

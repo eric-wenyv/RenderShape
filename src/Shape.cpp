@@ -7,34 +7,18 @@
 #include <cmath>
 #include "RenderConfig.h"
 
-double getDistanceToCamera(Dot dot,const double camera[])
-{
-    return std::sqrt(
-        std::pow(dot.x() - camera[0], 2) +
-        std::pow(dot.y() - camera[1], 2) +
-        std::pow(dot.z() - camera[2], 2)
-    );
-}
-
-char getSymbol(const double distance)
-{
-    for (auto [dis,symbol] : RenderConfig::symbols)
-    {
-        if (distance <= dis)
-        {
-            return symbol;
-        }
-    }
-
-    return ' ';
-}
-
 std::vector<Dot> Shape::readShape(const std::string &filename)
 {
     std::vector<Dot> dots;
     std::string line;
     std::ifstream file(filename);
 
+    if (!file.is_open())
+    {
+        std::cerr << "Error opening file: " << filename << std::endl;
+        return dots; // 返回空向量
+    }
+    //跳过第一行标题
     getline(file, line);
 
     while (getline(file, line))
@@ -93,16 +77,16 @@ void Shape::render(const double camera[3],const double center[2], char*** pre_bu
     }
 
     //获得投影坐标及距离
-    int* pro_dot = nullptr;
+    std::unique_ptr<int[]> pro_dot_tmp = nullptr;
     double distance = 0.0;
-    auto* pro_dots_with_distance = new std::pair<int*, double>[cube.size()];
+    auto* pro_dots_with_distance = new std::pair<std::unique_ptr<int[]>, double>[cube.size()];
     for (size_t i = 0; i < cube.size(); ++i)
     {
-        pro_dot = cube[i].getProjectedCoordinates(camera, center, width, height, scale_x,scale_y);
-        distance = getDistanceToCamera(cube[i] ,camera);
-        if (pro_dot != nullptr)
+        pro_dot_tmp = cube[i].getProjectedCoordinates(camera, center, width, height, scale_x,scale_y);
+        distance = RenderConfig::getDistanceToCamera(cube[i] ,camera);
+        if (pro_dot_tmp != nullptr)
         {
-            pro_dots_with_distance[i] = {pro_dot, distance};
+            pro_dots_with_distance[i] = {std::move(pro_dot_tmp), distance};
         }
         else
         {
@@ -112,7 +96,7 @@ void Shape::render(const double camera[3],const double center[2], char*** pre_bu
 
     // 按照距离排序
     std::sort(pro_dots_with_distance, pro_dots_with_distance + cube.size(),
-        [](const std::pair<int*, double>& a, const std::pair<int*, double>& b) {
+        [](const std::pair<std::unique_ptr<int[]>, double>& a, const std::pair<std::unique_ptr<int[]>, double>& b) {
         return a.second > b.second;
     });
 
@@ -131,17 +115,16 @@ void Shape::render(const double camera[3],const double center[2], char*** pre_bu
     //写入缓冲区
     for (size_t i = 0; i < cube.size(); ++i)
     {
-        pro_dot = pro_dots_with_distance[i].first;
+        auto& pro_dot = pro_dots_with_distance[i].first;
         if (pro_dot != nullptr)
         {
             const int xi = pro_dot[0];
             const int yi = pro_dot[1];
             if (xi >= 0 && xi < width && yi >= 0 && yi < height)
             {
-                pre_buffer[next_index][yi][xi] = getSymbol(pro_dots_with_distance[i].second);
+                pre_buffer[next_index][yi][xi] = RenderConfig::getSymbol(pro_dots_with_distance[i].second);
             }
         }
-        delete[] pro_dot;
     }
     delete[] pro_dots_with_distance;
 

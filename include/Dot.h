@@ -1,5 +1,6 @@
 #pragma once
 #include "Matrix.h"
+#include <memory>
 
 class Dot
 {
@@ -16,12 +17,12 @@ public:
     Dot &operator=(const Dot &other);
     ~Dot();
 
-    double x() { return m_coordinate.at(0, 0); }
-    double y() { return m_coordinate.at(1, 0); }
-    double z() { return m_coordinate.at(2, 0); }
-    double ex() { return m_coordinate.at(3, 0); }
+    [[nodiscard]] double x() const{ return m_coordinate.at(0, 0); }
+    [[nodiscard]] double y() const{ return m_coordinate.at(1, 0); }
+    [[nodiscard]] double z() const{ return m_coordinate.at(2, 0); }
+    [[nodiscard]] double ex() const{ return m_coordinate.at(3, 0); }
 
     void rotate(double angle);
 
-    int* getProjectedCoordinates(const double camera[], const double center[2],int width, int height, double scale_x,double scale_y);
+    std::unique_ptr<int[]> getProjectedCoordinates(const double camera[], const double center[2],int width, int height, double scale_x,double scale_y);
 };
