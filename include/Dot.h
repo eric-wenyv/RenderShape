@@ -24,7 +24,7 @@ public:
     [[nodiscard]] double z() const;
     [[nodiscard]] double ex() const;
 
-    void rotate(double angle);
+    void rotate(double angle) const;
 
-    std::unique_ptr<int[]> getProjectedCoordinates(const double camera[], const double center[2],int width, int height, double scale_x,double scale_y);
+    std::unique_ptr<int[]> getProjectedCoordinates(const double camera[], const double center[2],int width, int height, double scale_x,double scale_y) const;
 };

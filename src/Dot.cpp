@@ -52,7 +52,7 @@ Dot Dot::project() const
 }
 
 std::unique_ptr<int[]> Dot::getProjectedCoordinates(const double camera[], const double center[2],
-                                  const int width, const int height, const double scale_x,const double scale_y)
+                                  const int width, const int height, const double scale_x,const double scale_y) const
 {
     const double cx = camera[0];
     const double cy = camera[1];
@@ -90,7 +90,7 @@ std::unique_ptr<int[]> Dot::getProjectedCoordinates(const double camera[], const
     return nullptr;
 }
 
-void Dot::rotate(const double angle)
+void Dot::rotate(const double angle) const
 {
     Matrix m_rotate(4, 4);
     m_rotate.at(0, 0) = cos(angle);

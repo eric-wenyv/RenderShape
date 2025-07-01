@@ -1,8 +1,4 @@
 #include "Matrix.h"
-
-#include <cmath>
-#include <iostream>
-
 #include "Dot.h"
 #include <stdexcept>
 
@@ -93,19 +89,19 @@ double Matrix::threeDet(const Matrix &matrix)
 Matrix Matrix::getCoefficients(const Dot& dot1, const Dot& dot2, const Dot& dot3, const Dot& dot4)
 {
     // 向量 v1 = dot2 - dot1
-    double v1x = dot2.x() - dot1.x();
-    double v1y = dot2.y() - dot1.y();
-    double v1z = dot2.z() - dot1.z();
+    const double v1x = dot2.x() - dot1.x();
+    const double v1y = dot2.y() - dot1.y();
+    const double v1z = dot2.z() - dot1.z();
 
     // 向量 v2 = dot3 - dot1
-    double v2x = dot3.x() - dot1.x();
-    double v2y = dot3.y() - dot1.y();
-    double v2z = dot3.z() - dot1.z();
+    const double v2x = dot3.x() - dot1.x();
+    const double v2y = dot3.y() - dot1.y();
+    const double v2z = dot3.z() - dot1.z();
 
     // 法向量 n = v1 × v2 (叉积)
-    double nx = v1y * v2z - v1z * v2y;
-    double ny = v1z * v2x - v1x * v2z;
-    double nz = v1x * v2y - v1y * v2x;
+    const double nx = v1y * v2z - v1z * v2y;
+    const double ny = v1z * v2x - v1x * v2z;
+    const double nz = v1x * v2y - v1y * v2x;
 
     const double d = nx * dot1.x() + ny * dot1.y() + nz * dot1.z();
 

@@ -93,7 +93,7 @@ std::vector<Dot> Shape::readObj(const std::string &filename)
                 std::cerr << "Invalid vertex format in line: " << line << std::endl;
             }
         }
-        // 处理面行 "f v1 v2 v3 v4" 或 "f v1/vt1/vn1 v2/vt2/vn2 ..."
+        // 处理面行"f v1/vt1/vn1 v2/vt2/vn2 ..."
         else if (line.substr(0, 2) == "f ")
         {
             std::stringstream ss(line);
@@ -156,19 +156,19 @@ void Shape::fillSurface(const std::array<int, 4> vertices_indexes, std::vector<D
 {
     if (vertices_indexes[3] != 0)
     {
-        Dot& dot1 = vertices[vertices_indexes[0]];
-        Dot& dot2 = vertices[vertices_indexes[1]];
-        Dot& dot3 = vertices[vertices_indexes[2]];
-        Dot& dot4 = vertices[vertices_indexes[3]];
+        const Dot& dot1 = vertices[vertices_indexes[0]];
+        const Dot& dot2 = vertices[vertices_indexes[1]];
+        const Dot& dot3 = vertices[vertices_indexes[2]];
+        const Dot& dot4 = vertices[vertices_indexes[3]];
 
-        double min_x = min_multi({dot1.x(), dot2.x(), dot3.x(), dot4.x()});
-        double min_y = min_multi({dot1.y(), dot2.y(), dot3.y(), dot4.y()});
-        double min_z = min_multi({dot1.z(), dot2.z(), dot3.z(), dot4.z()});
-        double max_x = max_multi({dot1.x(), dot2.x(), dot3.x(), dot4.x()});
-        double max_y = max_multi({dot1.y(), dot2.y(), dot3.y(), dot4.y()});
-        double max_z = max_multi({dot1.z(), dot2.z(), dot3.z(), dot4.z()});
+        const double min_x = min_multi({dot1.x(), dot2.x(), dot3.x(), dot4.x()});
+        const double min_y = min_multi({dot1.y(), dot2.y(), dot3.y(), dot4.y()});
+        const double min_z = min_multi({dot1.z(), dot2.z(), dot3.z(), dot4.z()});
+        const double max_x = max_multi({dot1.x(), dot2.x(), dot3.x(), dot4.x()});
+        const double max_y = max_multi({dot1.y(), dot2.y(), dot3.y(), dot4.y()});
+        const double max_z = max_multi({dot1.z(), dot2.z(), dot3.z(), dot4.z()});
 
-        Matrix coefficients = Matrix::getCoefficients(dot1, dot2, dot3, dot4);
+        const Matrix coefficients = Matrix::getCoefficients(dot1, dot2, dot3, dot4);
 
         const auto* one_array = new double[1]{1.0};
         for (double x = min_x; x <= max_x; x += 0.1)
@@ -202,7 +202,7 @@ Shape::Shape(const std::vector<Dot>& cube)
 Shape::~Shape()
 =default;
 
-void Shape::rotate(const double rotate_speed)
+void Shape::rotate(const double rotate_speed) const
 {
     for (auto& dot : cube)
     {
@@ -211,10 +211,10 @@ void Shape::rotate(const double rotate_speed)
 }
 
 void Shape::render(const double camera[3],const double center[2], char*** pre_buffer
-    , const int width, const int height, const double scale_x,const double scale_y)
+    , const int width, const int height, const double scale_x,const double scale_y) const
 {
     static int buffer_index = 0;
-    int next_index = 1 - buffer_index;
+    const int next_index = 1 - buffer_index;
 
     // 输出当前缓冲区
     std::string screen;
