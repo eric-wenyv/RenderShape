@@ -9,6 +9,4 @@ include_directories(include)
 # 添加源文件
 file(GLOB SOURCES src/*.cpp)
 
-add_executable(demo ${SOURCES}
-        include/RenderConfig.h
-        src/RenderConfig.cpp)
+add_executable(demo ${SOURCES})

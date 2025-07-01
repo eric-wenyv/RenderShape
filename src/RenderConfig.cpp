@@ -22,6 +22,9 @@ namespace RenderConfig {
         {1.0, '.'}
     };
 
+    //归一化距离
+    const double max_possible_distance = 10;
+    const double min_possible_distance = 0;
 
     double getDistanceToCamera(const Dot& dot,const double camera[])
     {

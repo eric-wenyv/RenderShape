@@ -18,6 +18,10 @@ namespace RenderConfig {
     // 渲染符号
     extern std::vector<std::pair<double,char>> symbols;
 
+    //归一化距离
+    extern const double max_possible_distance;
+    extern const double min_possible_distance;
+
     extern double getDistanceToCamera(const Dot& dot,const double camera[]);
 
     extern char getSymbol(double distance);

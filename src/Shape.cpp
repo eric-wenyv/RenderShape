@@ -103,10 +103,9 @@ void Shape::render(const double camera[3],const double center[2], char*** pre_bu
     //归一化处理
     for (size_t i = 0; i < cube.size(); ++i)
     {
-        constexpr double max_possible_distance = 10;
-        constexpr double min_possible_distance = 0;
-        double normalized_distance = (pro_dots_with_distance[i].second - min_possible_distance) /
-                                    (max_possible_distance - min_possible_distance);
+
+        double normalized_distance = (pro_dots_with_distance[i].second - RenderConfig::min_possible_distance) /
+                                    (RenderConfig::max_possible_distance - RenderConfig::min_possible_distance);
 
         normalized_distance = std::max(0.0, std::min(1.0, normalized_distance));
         pro_dots_with_distance[i].second = normalized_distance;
