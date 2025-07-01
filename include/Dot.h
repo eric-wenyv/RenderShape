@@ -1,12 +1,13 @@
 #pragma once
-#include "Matrix.h"
 #include <memory>
+
+class Matrix;
 
 class Dot
 {
 private:
-    Matrix m_coordinate;
-    Matrix m_projection;
+    std::unique_ptr<Matrix> m_coordinate;
+    std::unique_ptr<Matrix> m_projection;
 
 private:
     [[nodiscard]] Dot project() const;
@@ -14,13 +15,14 @@ private:
 public:
     Dot(double x, double y, double z);
     explicit Dot(const Matrix &coordinate);
+    Dot(const Dot& other);  // 添加拷贝构造函数
     Dot &operator=(const Dot &other);
     ~Dot();
 
-    [[nodiscard]] double x() const{ return m_coordinate.at(0, 0); }
-    [[nodiscard]] double y() const{ return m_coordinate.at(1, 0); }
-    [[nodiscard]] double z() const{ return m_coordinate.at(2, 0); }
-    [[nodiscard]] double ex() const{ return m_coordinate.at(3, 0); }
+    [[nodiscard]] double x() const;
+    [[nodiscard]] double y() const;
+    [[nodiscard]] double z() const;
+    [[nodiscard]] double ex() const;
 
     void rotate(double angle);
 

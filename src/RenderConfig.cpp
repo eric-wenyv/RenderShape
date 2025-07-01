@@ -3,7 +3,7 @@
 
 namespace RenderConfig {
     // 镜头位置
-    const double camera[3] = {1.0, 1.0, 5.0};
+    const double camera[3] = {0.0, 0.0, 5.0};
     // 旋转速度
     const double rotate_speed = 0.05;
     // buffer大小

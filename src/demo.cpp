@@ -12,7 +12,8 @@ int main()
 {
     const double center[2] = {static_cast<double>(RenderConfig::width) / 2, static_cast<double>(RenderConfig::height) / 3};
     renderUtils::hide_cursor();
-    const std::vector<Dot> cube = Shape::readShape("../shape_edge_points.csv");
+    // const std::vector<Dot> cube = Shape::readShape("../shape_edge_points.csv");
+    const std::vector<Dot> cube = Shape::readObj("../cube.obj");
     Shape cube_object(cube);
 
     const auto pre_buffer = new char**[2];
