@@ -1,4 +1,8 @@
 #include "Matrix.h"
+
+#include <cmath>
+#include <iostream>
+
 #include "Dot.h"
 #include <stdexcept>
 
@@ -88,38 +92,35 @@ double Matrix::threeDet(const Matrix &matrix)
 
 Matrix Matrix::getCoefficients(const Dot& dot1, const Dot& dot2, const Dot& dot3, const Dot& dot4)
 {
-    //行列式计算方法
-    Matrix res(1,3);
-    Matrix matrix(3, 3);
-    matrix.at(0, 0) = dot1.x();
-    matrix.at(0, 1) = dot1.y();
-    matrix.at(0, 2) = dot1.z();
-    matrix.at(1, 0) = dot2.x();
-    matrix.at(1, 1) = dot2.y();
-    matrix.at(1, 2) = dot2.z();
-    matrix.at(2, 0) = dot3.x();
-    matrix.at(2, 1) = dot3.y();
-    matrix.at(2, 2) = dot3.z();
-    const double detA = threeDet(matrix);
-    Matrix matrix1 = matrix;
-    matrix1.at(0, 0) = 1.0;
-    matrix1.at(0, 1) = 1.0;
-    matrix1.at(0, 2) = 1.0;
-    const double detX1 = threeDet(matrix1);
-    Matrix matrix2 = matrix;
-    matrix2.at(1, 0) = 1.0;
-    matrix2.at(1, 1) = 1.0;
-    matrix2.at(1, 2) = 1.0;
-    const double detX2 = threeDet(matrix2);
-    Matrix matrix3 = matrix;
-    matrix3.at(2, 0) = 1.0;
-    matrix3.at(2, 1) = 1.0;
-    matrix3.at(2, 2) = 1.0;
-    const double detX3 = threeDet(matrix3);
+    // 向量 v1 = dot2 - dot1
+    double v1x = dot2.x() - dot1.x();
+    double v1y = dot2.y() - dot1.y();
+    double v1z = dot2.z() - dot1.z();
 
-    res.at(0, 0) = detX1 / detA;
-    res.at(0, 1) = detX2 / detA;
-    res.at(0, 2) = detX3 / detA;
+    // 向量 v2 = dot3 - dot1
+    double v2x = dot3.x() - dot1.x();
+    double v2y = dot3.y() - dot1.y();
+    double v2z = dot3.z() - dot1.z();
+
+    // 法向量 n = v1 × v2 (叉积)
+    double nx = v1y * v2z - v1z * v2y;
+    double ny = v1z * v2x - v1x * v2z;
+    double nz = v1x * v2y - v1y * v2x;
+
+    const double norm = sqrt(nx*nx + ny*ny + nz*nz);
+    // 归一化法向量
+    nx /= norm;
+    ny /= norm;
+    nz /= norm;
+
+    // 计算平面方程的常数项 d = -(nx*x1 + ny*y1 + nz*z1)
+    const double d = -(nx * dot1.x() + ny * dot1.y() + nz * dot1.z());
+
+    // 返回平面方程系数 [a, b, c] 对应 ax + by + cz = 1
+    Matrix res(1, 3);
+    res.at(0, 0) = -nx / d;
+    res.at(0, 1) = -ny / d;
+    res.at(0, 2) = -nz / d;
 
     return res;
 }
