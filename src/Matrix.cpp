@@ -107,20 +107,13 @@ Matrix Matrix::getCoefficients(const Dot& dot1, const Dot& dot2, const Dot& dot3
     double ny = v1z * v2x - v1x * v2z;
     double nz = v1x * v2y - v1y * v2x;
 
-    const double norm = sqrt(nx*nx + ny*ny + nz*nz);
-    // 归一化法向量
-    nx /= norm;
-    ny /= norm;
-    nz /= norm;
-
-    // 计算平面方程的常数项 d = -(nx*x1 + ny*y1 + nz*z1)
-    const double d = -(nx * dot1.x() + ny * dot1.y() + nz * dot1.z());
+    const double d = nx * dot1.x() + ny * dot1.y() + nz * dot1.z();
 
     // 返回平面方程系数 [a, b, c] 对应 ax + by + cz = 1
     Matrix res(1, 3);
-    res.at(0, 0) = -nx / d;
-    res.at(0, 1) = -ny / d;
-    res.at(0, 2) = -nz / d;
+    res.at(0, 0) = nx / d;
+    res.at(0, 1) = ny / d;
+    res.at(0, 2) = nz / d;
 
     return res;
 }
