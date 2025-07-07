@@ -5,49 +5,56 @@
 #include <thread>
 #include "renderUtils.h"
 #include "RenderConfig.h"
-#include <conio.h>
+#include "PlatformInput.h"
 
 using namespace std;
 int main()
 {
     const double center[2] = {static_cast<double>(RenderConfig::width) / 2, static_cast<double>(RenderConfig::height) / 3};
     renderUtils::hide_cursor();
+
+    // 初始化跨平台输入系统
+    PlatformInput::init();
+
     const std::vector<Dot> cube = Shape::readObj("../cube.obj");
     Shape cube_object(cube);
 
-    const auto pre_buffer = new char**[2];
+    const auto pre_buffer = new char **[2];
     pre_buffer[0] = renderUtils::createBuffer(RenderConfig::width, RenderConfig::height);
     pre_buffer[1] = renderUtils::createBuffer(RenderConfig::width, RenderConfig::height);
 
     bool running = true;
     while (running)
     {
-        //检测用户输入
-        if (_kbhit())
+        // 检测用户输入
+        if (PlatformInput::kbhit())
         {
-            char ch = _getch();
+            char ch = PlatformInput::getch();
             if (ch == 'q' || ch == 'Q') // 按 'q' 键退出
             {
                 running = false;
             }
         }
 
-        //清除上一帧
+        // 清除上一帧
         renderUtils::clear_screen();
-        //渲染立方体
-        cube_object.render(RenderConfig::camera, center, pre_buffer, RenderConfig::width, RenderConfig::height, RenderConfig::scale_x,RenderConfig::scale_y);
-        //控制帧数
+        // 渲染立方体
+        cube_object.render(RenderConfig::camera, center, pre_buffer, RenderConfig::width, RenderConfig::height, RenderConfig::scale_x, RenderConfig::scale_y);
+        // 控制帧数
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
-        //旋转图形
+        // 旋转图形
         cube_object.rotate(RenderConfig::rotate_speed);
     }
 
-    //清理资源
+    // 清理资源
     for (size_t i = 0; i < 2; i++)
     {
         renderUtils::deleteBuffer(pre_buffer[i], RenderConfig::height);
     }
     delete[] pre_buffer;
+
+    // 清理跨平台输入系统
+    PlatformInput::cleanup();
 
     return 0;
 }
